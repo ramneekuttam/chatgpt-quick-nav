@@ -61,7 +61,7 @@
         <div class="qn-title">Quick Nav</div>
         <div class="qn-actions">
           <button id="qn-refresh" title="Re-scan messages">↻</button>
-          <button id="qn-collapse" title="Collapse sidebar">⟨</button>
+          <button id="qn-collapse" title="Collapse sidebar">⟩</button>
         </div>
       </div>
       <div id="qn-list" class="qn-list"></div>
