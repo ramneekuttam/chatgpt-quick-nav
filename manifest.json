@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Quick Navigator",
-  "version": "0.2.1",
-  "description": "Sidebar to quickly access your chats contents",
+  "version": "0.3.0",
+  "description": "Sidebar to quickly navigate long chats without overlaying content.",
   "permissions": [
     "storage"
   ],
