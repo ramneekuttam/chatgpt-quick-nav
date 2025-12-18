@@ -1,132 +1,196 @@
-/* ChatGPT Quick Navigator v0.2.1 (no-hover): styles.css */
+/* ChatGPT Quick Navigator v0.3.0: styles.css */
+
+/* --- Layout & Sidebar --- */
 #qn-sidebar.qn-root {
   position: fixed;
   top: 0;
   right: 0;
   height: 100vh;
-  width: 380px;
-  background: rgba(22, 22, 22, 0.93);
-  color: #fff;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  width: 320px; 
+  background: #171717;
+  color: #ececec;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   z-index: 999999;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid rgba(255,255,255,0.08);
-  box-shadow: -8px 0 24px rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px);
+  border-left: 1px solid #333;
+  box-shadow: -4px 0 15px rgba(0,0,0,0.5);
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 #qn-sidebar.qn-hidden {
   transform: translateX(100%);
-  transition: transform 0.22s ease;
 }
 
+/* --- Toggle Button --- */
 #qn-toggle {
   position: fixed;
-  right: 14px;
-  bottom: 18px;
+  right: 20px;
+  bottom: 20px;
   z-index: 1000000;
-  background: #1f6feb;
+  background: #343541;
   color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 14px;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(31, 111, 235, 0.35);
+  border: 1px solid #565869;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-#qn-toggle:hover { filter: brightness(1.05); }
+#qn-toggle:hover { background: #40414f; }
+#qn-toggle .shortcut-hint {
+  font-size: 10px;
+  background: rgba(255,255,255,0.1);
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: #aaa;
+}
 
+/* --- Header --- */
 .qn-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 16px;
+  background: #171717;
+  border-bottom: 1px solid #333;
 }
 
-.qn-title { font-weight: 700; letter-spacing: 0.3px; }
+.qn-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
 
 .qn-actions button {
-  margin-left: 8px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: #fff;
-  border-radius: 8px;
-  padding: 6px 8px;
+  border: none;
+  color: #999;
+  border-radius: 4px;
+  padding: 4px 8px;
   cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
 }
-.qn-actions button:hover { background: rgba(255,255,255,0.08); }
+.qn-actions button:hover { color: #fff; background: rgba(255,255,255,0.1); }
 
-.qn-list { padding: 8px; overflow: auto; flex: 1; }
-
-.qn-empty { opacity: 0.7; padding: 10px; font-size: 14px; }
-
-.qn-footer {
-  padding: 8px 12px 12px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+/* --- List & Content --- */
+.qn-list {
+  padding: 12px;
+  overflow-y: auto;
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.qn-checkbox { font-size: 13px; user-select: none; }
-.qn-checkbox input { margin-right: 6px; vertical-align: middle; }
+/* Custom Scrollbar */
+.qn-list::-webkit-scrollbar { width: 6px; }
+.qn-list::-webkit-scrollbar-track { background: transparent; }
+.qn-list::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+.qn-list::-webkit-scrollbar-thumb:hover { background: #666; }
 
+.qn-empty {
+  text-align: center;
+  color: #666;
+  margin-top: 40px;
+  font-size: 13px;
+}
+
+/* --- Message Cards (The new UI) --- */
 .qn-item {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   width: 100%;
   text-align: left;
-  gap: 10px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin: 6px 0;
+  background: #202123;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px;
   cursor: pointer;
-  color: #fff;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
-.qn-item:hover { background: rgba(255,255,255,0.06); }
 
-.qn-item .qn-who {
-  font-size: 11px;
-  opacity: 0.7;
-  text-transform: uppercase;
-  min-width: 72px;
-  padding-top: 2px;
+.qn-item:hover {
+  background: #2A2B32;
+  border-color: #555;
+  transform: translateX(-2px);
 }
+
+/* Role Indicators */
+.qn-item .qn-who {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* User styling */
+.qn-item[data-role="user"] { border-left: 3px solid #1f6feb; }
+.qn-item[data-role="user"] .qn-who { color: #8cb4ff; background: rgba(31, 111, 235, 0.1); }
+
+/* Assistant styling */
+.qn-item[data-role="assistant"] { border-left: 3px solid #19c37d; }
+.qn-item[data-role="assistant"] .qn-who { color: #19c37d; background: rgba(25, 195, 125, 0.1); }
 
 .qn-item .qn-label {
-  font-size: 13px;
-  line-height: 1.25;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #ccc;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  max-height: 4.8em;
 }
 
+/* --- Footer --- */
+.qn-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #333;
+  background: #171717;
+  font-size: 12px;
+  color: #888;
+}
+
+.qn-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.qn-checkbox input { margin-right: 8px; accent-color: #1f6feb; }
+
+/* --- Resize Grip --- */
 .qn-resize-grip {
   position: absolute;
-  left: -6px;
+  left: -5px;
   top: 0;
-  width: 6px;
+  width: 10px;
   height: 100%;
   cursor: ew-resize;
-  background: linear-gradient(to left, rgba(255,255,255,0.08), transparent);
+  z-index: 10;
 }
+.qn-resize-grip:hover { background: rgba(255,255,255,0.05); }
 
+/* --- Highlighter Animation --- */
 @keyframes qn-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(31,111,235,0.6); }
-  100% { box-shadow: 0 0 0 12px rgba(31,111,235,0.0); }
+  0% { box-shadow: 0 0 0 0 rgba(25, 195, 125, 0.7); outline: 2px solid rgba(25, 195, 125, 0.7); }
+  100% { box-shadow: 0 0 0 10px rgba(25, 195, 125, 0); outline: 2px solid rgba(25, 195, 125, 0); }
 }
 
 [data-qn-id].qn-highlight {
-  outline: 2px solid #1f6feb;
-  animation: qn-pulse 0.9s ease-out forwards;
-  border-radius: 10px;
+  animation: qn-pulse 1.5s ease-out forwards;
+  border-radius: 6px;
 }
